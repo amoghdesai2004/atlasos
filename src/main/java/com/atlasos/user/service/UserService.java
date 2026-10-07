@@ -6,6 +6,8 @@ import com.atlasos.user.entity.User;
 import com.atlasos.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import com.atlasos.common.exception.DuplicateResourceException;
+import com.atlasos.common.exception.ResourceNotFoundException;
+import java.util.UUID;
 
 import java.util.List;
 
@@ -56,5 +58,16 @@ public class UserService {
                 user.getUpdatedAt()
         );
     }
+    public UserResponse getUserById(UUID id) {
+
+    User user = userRepository.findById(id)
+            .orElseThrow(() ->
+                    new ResourceNotFoundException(
+                            "User not found with id: " + id
+                    )
+            );
+
+    return toResponse(user);
+}
     
 }

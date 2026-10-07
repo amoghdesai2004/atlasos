@@ -6,6 +6,7 @@ import com.atlasos.user.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import java.util.UUID;
 
 import java.util.List;
 
@@ -31,4 +32,9 @@ public class UserController {
     ) {
         return userService.createUser(request);
     }
+
+    @GetMapping("/{id}")
+    public UserResponse getUserById(@PathVariable UUID id) {
+    return userService.getUserById(id);
+}
 }
